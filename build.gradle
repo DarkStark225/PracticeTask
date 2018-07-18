@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+}
+
+group 'anton_berezin'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+ext {
+    srcDir = file('src')
+}
+    sourceSets {
+        main {
+            java {
+                srcDir srcDir
+            }
+            resources {
+                srcDirs= ["src/resources"]
+            }
+        }
+    }
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.6'
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.6'
+    compile group: 'log4j',name: 'log4j',version: '1.2.17'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.0'
+
+
+
+}
+jar {
+    manifest {
+        attributes('Main-Class': 'com.company.Main')
+        attributes("Class-Path": configurations.compile.collect { "libs/" + it.getName() }.join(' '))
+
+    }
+}
+def static getDateForBuild() {
+    def date = new Date()
+    def formattedDate = date.format('ddMMyyyy')
+    return formattedDate
+}
+
+task releaseCompleteBuild(type: Zip, dependsOn: jar) {
+    archiveName "PracticeTask_" + getDateForBuild() + ".zip"
+    from(configurations.compile) {
+        into "libs"
+    }
+    from jar
+}
