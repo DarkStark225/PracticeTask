@@ -87,8 +87,8 @@ public class GeneratorXMLfromJSON {
                     JsonNode obj = curNode.get(0);
                     processObjNode(doc,field,(ObjectNode) obj,testPath(key,path));
                 }
-
             }
+
             if (curNode.isObject()) {
 
                 attr = doc.createAttribute(secondAttribute);
@@ -100,9 +100,7 @@ public class GeneratorXMLfromJSON {
 
             }
             else setAttrType(doc,field,key,path,curNode);
-
         }
-
     }
 
     private void processArrayNode(Document doc,Element beginField,ArrayNode node,String path){
@@ -203,11 +201,12 @@ public class GeneratorXMLfromJSON {
         attr = doc.createAttribute(arraysAttribute);
         attr.setValue("true");
         field.setAttributeNode(attr);
-    }
 
+    }
 
     private void saveDocument(Document doc,String outputFilePath,String inputFilePath) throws GeneratorExceptions {
         try {
+
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
@@ -231,14 +230,15 @@ public class GeneratorXMLfromJSON {
                     outputPath =inputPath.resolveSibling(outputPath.toString()) ;
                     result = new StreamResult(outputPath.toFile());
                 }
-
             }
 
             transformer.transform(source, result);
 
-        }catch (TransformerConfigurationException e) {
+        }
+        catch (TransformerConfigurationException e) {
             throw new GeneratorExceptions("Error of Transformer configuration",e);
-        }catch (TransformerException e) {
+        }
+        catch (TransformerException e) {
             throw new GeneratorExceptions("Error of save result document with Transformer",e);
         }
     }
@@ -269,7 +269,8 @@ public class GeneratorXMLfromJSON {
 
         try {
             docBuilder = docFactory.newDocumentBuilder();
-        }catch (ParserConfigurationException e) {
+        }
+        catch (ParserConfigurationException e) {
             throw new GeneratorExceptions("Error of Parser Configuration",e);
         }
         if (docBuilder != null) {
@@ -279,7 +280,6 @@ public class GeneratorXMLfromJSON {
             docBuilder = docFactory.newDocumentBuilder();
             return docBuilder.newDocument();
         }
-
     }
 
     private Element createRootElement(Document doc){
@@ -306,9 +306,11 @@ public class GeneratorXMLfromJSON {
 
         try {
             tree = (ContainerNode) mapper.readTree(path.toFile());
-        }catch(JsonParseException ex){
+        }
+        catch(JsonParseException ex){
             throw new GeneratorExceptions(String.format("File %s is not JSON file!",path),ex);
-        }catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new GeneratorExceptions(String.format("Error read file %s",path),e); //ошибка при чтении файла
         }
 
