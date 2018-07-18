@@ -1,0 +1,38 @@
+[[
+  {
+    "instrument" : {
+      "id": "4^LMEC_AAD_20171116_F",
+      "type": "Forward",
+      "underlying": true,
+      "expiryDate": {
+        "day": 17486
+      }
+    },
+    "price": 1849.23,
+    "timestamp": "1510185600000"
+  },
+  {
+    "instrument" : {
+      "id": "4^LMEC_AAD_20171115_F",
+      "type": "Forward1",
+      "underlying": false,
+      "expiryDate": {
+        "day": 34535
+      }
+    },
+    "price": 3434.69,
+    "timestamp": "1543546500000"
+  },
+  {
+    "instrument" : {
+      "id": "4^LMEC_AAD_20171118_F",
+      "type": "Forward4",
+      "underlying": true,
+      "expiryDate": {
+        "day": 95830
+      }
+    },
+    "price": 4690.64,
+    "timestamp": "1510185600000"
+  }
+]]
